@@ -31,12 +31,11 @@ import 'views/eg4.dart';
 import 'views/eg5.dart';
 import 'views/eg6.dart';
 
-
 void main() {
-  const exampleNum = 0; // can we hot-reload a change to this?
-                        // see https://docs.flutter.dev/tools/hot-reload#special-cases
+  const exampleNum = 4; // can we hot-reload a change to this?
+  // see https://docs.flutter.dev/tools/hot-reload#special-cases
 
-  switch(exampleNum) {
+  switch (exampleNum) {
     case 0:
       // simplest possible app!
       // (check out definitions of `runApp`, `Placeholder`, and superclasses)
@@ -56,9 +55,8 @@ void main() {
       // our first Material app (what is Material? what does it provide?)
       // (check it out in the widget details tree)
       runApp(const MaterialApp(
-        title: 'App3',
-        home: App3() // the "home" / root widget
-      ));
+          title: 'App3', home: App3() // the "home" / root widget
+          ));
       break;
 
     case 4:
