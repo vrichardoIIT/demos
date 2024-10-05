@@ -7,47 +7,44 @@ class App4 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //build widget tree
     return const AncestralTraits(
       // the following property is inherited by descendant widgets
-      traits: { 'surname': 'Smith', 'homeworld': 'Earth'},
+      traits: {'surname': 'Smith', 'homeworld': 'Earth'},
       child: Scaffold(
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              DescendantWidget('surname'),
-              DescendantWidget('homeworld'),
-            ]
-          ),
-        )
-      ),
+          body: Center(
+        child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+          DescendantWidget('surname'),
+          DescendantWidget('homeworld'),
+        ]),
+      )),
     );
   }
 }
 
-
 // As an inherited widget, AncestralTraits is a widget whose properties
 // are inherited by (and accessible from) its descendants.
 class AncestralTraits extends InheritedWidget {
-  final Map<String,String> traits;
-  
-  const AncestralTraits({
-    required this.traits, 
-    required super.child, 
-    super.key
-  });
- 
+  final Map<String, String> traits;
+
+  const AncestralTraits(
+      {required this.traits, required super.child, super.key});
+
   // This method determines whether descendant widgets should be rebuilt
   // (because descendants may depend on my properties).
   @override
   bool updateShouldNotify(AncestralTraits oldWidget) {
-    return traits != oldWidget.traits;
+    return traits !=
+        oldWidget
+            .traits; //tells to update the childern if the parents is updated
   }
 
   static AncestralTraits? maybeOf(BuildContext context) {
+    //context -> elements, element tree is a an accurate representaion to the GUI
     // This method walks up the widget tree to find the nearest ancestor
     // of type AncestralTraits.
-    return context.dependOnInheritedWidgetOfExactType<AncestralTraits>();
+    return context.dependOnInheritedWidgetOfExactType<
+        AncestralTraits>(); // will return the the object AncestrialTraits
   }
 
   // Expose a convenience method for accessing the nearest ancestor
@@ -57,7 +54,6 @@ class AncestralTraits extends InheritedWidget {
     return result!;
   }
 }
-
 
 class DescendantWidget extends StatelessWidget {
   final String displayedTrait;
@@ -71,7 +67,9 @@ class DescendantWidget extends StatelessWidget {
     String trait = AncestralTraits.of(context).traits[displayedTrait]!;
     return Text(
       'My $displayedTrait: $trait',
-      style: Theme.of(context).textTheme.headlineMedium,
+      style: Theme.of(context)
+          .textTheme
+          .headlineMedium, //look for a parent that can prove a theme, buy walking up the widget tree
     );
   }
 }
