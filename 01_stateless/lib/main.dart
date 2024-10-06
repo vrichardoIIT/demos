@@ -75,6 +75,7 @@ void main() {
 
     case 6:
       runApp(const MaterialApp(
+        //materialapp specify defualt property
         title: 'App6',
         home: App6(),
         debugShowCheckedModeBanner: false,
