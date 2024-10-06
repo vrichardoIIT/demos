@@ -10,13 +10,15 @@ class App1 extends StatelessWidget {
   // `build` is called by the framework to build the widget tree
   @override
   Widget build(BuildContext context) {
+    //context = refrence to element
     // `context` is my location in the tree
     // construct and return a widget tree
     // (try to navigate the tree in the widget inspector)
     return const Center(
         child: Text(
-      'Hello world!', // try changing this and hot-reloading
-      textDirection: TextDirection.ltr, // what happens if we remove this?
+      'Hello world!', // try changing this and hot-reloading, if change the element stay the same but the widget change
+      textDirection: TextDirection
+          .ltr, // what happens if we remove this? left to right or not, its important
     ));
   }
 }
