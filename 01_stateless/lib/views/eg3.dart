@@ -8,8 +8,9 @@ class App3 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // what happens if we remove the scaffold? def where different things go
+      // what happens if we remove the scaffold? def: where different things go
       body: Center(
+        //try control + . on widget, more tip use quick fix
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [

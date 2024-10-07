@@ -52,7 +52,7 @@ void main() {
       break;
 
     case 3:
-      // our first Material app (what is Material? what does it provide?)
+      // our first Material app (what is Material? what does it provide?) it is a inharited widget subclass, give us attribute we want
       // (check it out in the widget details tree)
       runApp(const MaterialApp(
           title: 'App3', home: App3() // the "home" / root widget
