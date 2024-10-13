@@ -2,7 +2,7 @@ import 'dart:async';
 
 void main() {
   print('main() started');
-  switch(1) {
+  switch (1) {
     case 1:
       asyncFunction1a();
       break;
@@ -11,7 +11,7 @@ void main() {
       future.then((result) {
         print('Future resolved in main with result: $result');
       });
-      // below requires main to be async
+      // below requires main to be async, you leave main, complete the future and continue main, main is paused?
       // var result = await asyncFunction2b();
       // print('Future resolved in main with result: $result');
       break;
@@ -28,7 +28,6 @@ void main() {
   }
   print('main() finishing');
 }
-
 
 // obtain a future and runs a handler on its completion
 void asyncFunction1a() {
@@ -66,8 +65,9 @@ void asyncFunction3a() {
   Future<int> future = Future<int>.delayed(Duration(seconds: 2), () {
     throw Exception('Error in asyncFunction3a()');
   });
-  future.then((result) => print('Future resolved with result: $result'))
-        .catchError((error) => print('Future failed with error: $error'));
+  future
+      .then((result) => print('Future resolved with result: $result'))
+      .catchError((error) => print('Future failed with error: $error'));
   print('asyncFunction3a() finishing');
 }
 
@@ -87,29 +87,29 @@ void asyncFunction3b() async {
 
 // same as below but with explicit futures
 void asyncFunction4a() {
-Future<int> future1 = Future<int>.delayed(Duration(seconds: 1), () => 42);
-future1.then((result) {
-  print('First future resolved with result: $result');
-  Future<int> future2 = Future<int>.delayed(Duration(seconds: 1), () => 43);
-  future2.then((result) {
-    print('Second future resolved with result: $result');
-    Future<int> future3 = Future<int>.delayed(Duration(seconds: 1), () => 44);
-    future3.then((result) {
-      print('Third future resolved with result: $result');
-      print('asyncFunction4a() finishing');
+  Future<int> future1 = Future<int>.delayed(Duration(seconds: 1), () => 42);
+  future1.then((result) {
+    print('First future resolved with result: $result');
+    Future<int> future2 = Future<int>.delayed(Duration(seconds: 1), () => 43);
+    future2.then((result) {
+      print('Second future resolved with result: $result');
+      Future<int> future3 = Future<int>.delayed(Duration(seconds: 1), () => 44);
+      future3.then((result) {
+        print('Third future resolved with result: $result');
+        print('asyncFunction4a() finishing');
+      });
     });
   });
-});
 }
 
 // multiple futures
 void asyncFunction4b() async {
   print('asyncFunction4() started');
-var result = await Future.delayed(Duration(seconds: 1), () => 42);
-print('First future resolved with result: $result');
-result = await Future.delayed(Duration(seconds: 1), () => 43);
-print('Second future resolved with result: $result');
-result = await Future.delayed(Duration(seconds: 1), () => 44);
-print('Third future resolved with result: $result');
-print('asyncFunction4() finishing');
+  var result = await Future.delayed(Duration(seconds: 1), () => 42);
+  print('First future resolved with result: $result');
+  result = await Future.delayed(Duration(seconds: 1), () => 43);
+  print('Second future resolved with result: $result');
+  result = await Future.delayed(Duration(seconds: 1), () => 44);
+  print('Third future resolved with result: $result');
+  print('asyncFunction4() finishing');
 }

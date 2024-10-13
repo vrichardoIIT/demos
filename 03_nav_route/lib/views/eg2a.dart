@@ -24,29 +24,26 @@ class QuestionPage extends StatelessWidget {
     var questions = ['Stay home?', 'Go out?', 'Do work?'];
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Pick a question')),
-      body: Center(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: List.generate(questions.length, (index) {
-            return TextButton(
-              child: Text('${index + 1}'),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) {
-                      // Pass the chosen question to the next page
-                      return DecisionPage(questions[index]);
-                    }
-                  ),
+        appBar: AppBar(title: const Text('Pick a question')),
+        body: Center(
+          child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: List.generate(questions.length, (index) {
+                return TextButton(
+                  child:
+                      Text('${index + 1}'), //3 question, 3 index starting at 0
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) {
+                        // Pass the chosen question to the next page
+                        return DecisionPage(questions[index]);
+                      }),
+                    );
+                  },
                 );
-              },
-            );
-          }).toList()
-        ),
-      )
-    );
+              }).toList()),
+        ));
   }
 }
 
@@ -58,26 +55,25 @@ class DecisionPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Decide!')),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Text(question, style: Theme.of(context).textTheme.headlineSmall),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: ['Yes', 'No', 'Maybe'].map((String answer) {
-                return TextButton(
-                  child: Text(answer),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                );
-              }).toList(),
-            ),
-          ],
-        ),
-      )
-    );
+        appBar: AppBar(title: const Text('Decide!')),
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Text(question, style: Theme.of(context).textTheme.headlineSmall),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: ['Yes', 'No', 'Maybe'].map((String answer) {
+                  return TextButton(
+                    child: Text(answer),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                  );
+                }).toList(),
+              ),
+            ],
+          ),
+        ));
   }
 }
