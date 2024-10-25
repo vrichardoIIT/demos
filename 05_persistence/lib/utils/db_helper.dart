@@ -10,7 +10,7 @@ class DBHelper {
   DBHelper._(); // private constructor (can't be called from outside)
 
   // the single instance
-  static final DBHelper _singleton = DBHelper._();
+  static final DBHelper _singleton = DBHelper._(); //singleton avoid conflicts
 
   // factory constructor that always returns the single instance
   factory DBHelper() => _singleton;
@@ -36,14 +36,13 @@ class DBHelper {
     // await deleteDatabase(dbPath); // nuke the database (for testing)
 
     // open the database
-    var db = await openDatabase(
-      dbPath, 
-      version: _databaseVersion, // used for migrations
+    var db = await openDatabase(dbPath,
+        version: _databaseVersion, // used for migrations
 
-      // called when the database is first created
-      onCreate: (Database db, int version) async {
-        // create the customer table
-        await db.execute('''
+        // called when the database is first created
+        onCreate: (Database db, int version) async {
+      // create the customer table
+      await db.execute('''
           CREATE TABLE customer(
             id INTEGER PRIMARY KEY,
             name TEXT,
@@ -51,8 +50,8 @@ class DBHelper {
           )
         ''');
 
-        // create the purchase_order table (can't use "order" as it's a keyword)
-        await db.execute('''
+      // create the purchase_order table (can't use "order" as it's a keyword)
+      await db.execute('''
           CREATE TABLE purchase_order(
             id INTEGER PRIMARY KEY,
             description TEXT,
@@ -61,17 +60,16 @@ class DBHelper {
             FOREIGN KEY (customer_id) REFERENCES customer(id)
           )
         ''');
-      }
-    );
+    });
 
     return db;
   }
 
   // fetch records from a table with an optional "where" clause
-  Future<List<Map<String, dynamic>>> query(String table, {String? where}) async {
+  Future<List<Map<String, dynamic>>> query(String table,
+      {String? where}) async {
     final db = await this.db;
-    return where == null ? db.query(table)
-                         : db.query(table, where: where);
+    return where == null ? db.query(table) : db.query(table, where: where);
   }
 
   // insert a record into a table

@@ -16,7 +16,6 @@ class App2 extends StatelessWidget {
   }
 }
 
-
 class SimpleNotepad extends StatefulWidget {
   const SimpleNotepad({super.key});
 
@@ -95,6 +94,7 @@ class _SimpleNotepadState extends State<SimpleNotepad> {
                   onPressed: _filePath == null
                       ? null
                       : () async {
+                          //handler function
                           await _saveToFile();
                           if (!context.mounted) return; // async safety check
                           ScaffoldMessenger.of(context).showSnackBar(
@@ -106,9 +106,7 @@ class _SimpleNotepadState extends State<SimpleNotepad> {
                   child: const Text('Save to File'),
                 ),
                 ElevatedButton(
-                  onPressed: _filePath == null
-                      ? null
-                      : _loadFromFile,
+                  onPressed: _filePath == null ? null : _loadFromFile,
                   child: const Text('Load from File'),
                 ),
               ],

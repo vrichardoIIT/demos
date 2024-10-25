@@ -25,9 +25,9 @@ class PreferencesList extends StatefulWidget {
 }
 
 class _PreferencesListState extends State<PreferencesList> {
-  bool _darkMode   = false;
-  bool _showAds    = false;
-  String _version  = '0.0';
+  bool _darkMode = false;
+  bool _showAds = false;
+  String _version = '0.0';
   String _language = 'English';
 
   @override
@@ -37,21 +37,22 @@ class _PreferencesListState extends State<PreferencesList> {
   }
 
   _loadPreferences() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    
+    SharedPreferences prefs = await SharedPreferences
+        .getInstance(); //returns instantly with a future cus of await
+
     // let's pretend this takes a while
     await Future.delayed(const Duration(seconds: 3));
 
     setState(() {
-      // since the settings will almost certainly be set *after* the widget 
+      // since the settings will almost certainly be set *after* the widget
       // is built and mounted, we need to call setState to update the UI
-    
+
       // BUT! without the delay above, it's also possible that the settings
       // will be loaded *before* the widget is built, in which case we should
       // NOT call setState (why?). How can we handle this?
-      _darkMode = prefs.getBool('darkMode')   ?? false;
-      _showAds  = prefs.getBool('showAds')    ?? false;
-      _version  = prefs.getString('version')  ?? '0.0';
+      _darkMode = prefs.getBool('darkMode') ?? false;
+      _showAds = prefs.getBool('showAds') ?? false;
+      _version = prefs.getString('version') ?? '0.0';
       _language = prefs.getString('language') ?? 'English';
     });
   }
@@ -115,32 +116,33 @@ class _PreferencesListState extends State<PreferencesList> {
 
   Future<String> _selectLanguage() async {
     return await showDialog<String>(
-      context: context,
-      builder: (BuildContext context) {
-        return SimpleDialog(
-          title: const Text('Select Language'),
-          children: [
-            SimpleDialogOption(
-              onPressed: () {
-                Navigator.pop(context, 'English');
-              },
-              child: const Text('English'),
-            ),
-            SimpleDialogOption(
-              onPressed: () {
-                Navigator.pop(context, 'Spanish');
-              },
-              child: const Text('Spanish'),
-            ),
-            SimpleDialogOption(
-              onPressed: () {
-                Navigator.pop(context, 'French');
-              },
-              child: const Text('French'),
-            ),
-          ],
-        );
-      },
-    ) ?? _language;
+          context: context,
+          builder: (BuildContext context) {
+            return SimpleDialog(
+              title: const Text('Select Language'),
+              children: [
+                SimpleDialogOption(
+                  onPressed: () {
+                    Navigator.pop(context, 'English');
+                  },
+                  child: const Text('English'),
+                ),
+                SimpleDialogOption(
+                  onPressed: () {
+                    Navigator.pop(context, 'Spanish');
+                  },
+                  child: const Text('Spanish'),
+                ),
+                SimpleDialogOption(
+                  onPressed: () {
+                    Navigator.pop(context, 'French');
+                  },
+                  child: const Text('French'),
+                ),
+              ],
+            );
+          },
+        ) ??
+        _language;
   }
 }
